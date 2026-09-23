@@ -20,50 +20,28 @@ public class Empleado {
         return dni;
     }
 
-    public void setDni(int dni) {
-        this.dni = dni;
-    }
-
     public String getNombre() {
         return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public String getApellido() {
         return apellido;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
     public double getSueldo() {
         return sueldo;
-    }
-
-    public void setSueldo(double sueldo) {
-        this.sueldo = sueldo;
     }
 
     public char getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(char categoria) {
-        this.categoria = categoria;
-    }
-
     @Override
     public String toString() {
-        return "Empleado{" +
-                "dni=" + dni +
-                ", nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                ", sueldo=" + sueldo +
-                ", categoria=" + categoria +
-                '}';
+        return "DNI: " + dni +
+               " - Nombre: " + nombre +
+               " - Apellido: " + apellido +
+               " - Sueldo: " + sueldo +
+               " - Categoria: " + categoria;
     }
 }
