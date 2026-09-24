@@ -9,165 +9,227 @@ public class Ejercicio2 {
 
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
+        Scanner teclado = new Scanner(System.in);
 
         Map<String, Empleado> empleados = new HashMap<>();
 
         int opcion;
 
         do {
-            System.out.println("\n--- MENU DE EMPLEADOS ---");
+
+            System.out.println("--- MENU EMPLEADOS ---");
             System.out.println("1 - Alta de empleado");
             System.out.println("2 - Mostrar empleados");
             System.out.println("3 - Eliminar empleado");
-            System.out.println("4 - Consultar los datos de un empleado");
+            System.out.println("4 - Consultar datos de un empleado");
             System.out.println("5 - Salir");
-            System.out.print("Ingrese una opcion: ");
+            System.out.print("Ingrese una opcon: ");
 
-            while (!scanner.hasNextInt()) {
-                System.out.println("Debe ingresar un numero de opcion.");
-                scanner.nextLine();
+            while (!teclado.hasNextInt()) {
+                System.out.println("La opcion debe ser un numero");
+                teclado.nextLine();
                 System.out.print("Ingrese una opcion: ");
             }
 
-            opcion = scanner.nextInt();
-            scanner.nextLine();
+            opcion = teclado.nextInt();
+            teclado.nextLine();
 
             switch (opcion) {
 
                 case 1:
 
-                    System.out.print("Ingrese DNI: ");
+                    int dni;
 
-                    while (!scanner.hasNextInt()) {
-                        System.out.println("El DNI debe ser un numero entero.");
-                        scanner.nextLine();
+                    do {
                         System.out.print("Ingrese DNI: ");
-                    }
 
-                    int dni = scanner.nextInt();
-                    scanner.nextLine();
+                        while (!teclado.hasNextInt()) {
+                            System.out.println("El DNI debe contener solamente numeros");
+                            teclado.nextLine();
+                            System.out.print("Ingrese DNI: ");
+                        }
 
-                    System.out.print("Ingrese nombre: ");
-                    String nombre = scanner.nextLine();
+                        dni = teclado.nextInt();
+                        teclado.nextLine();
 
-                    System.out.print("Ingrese apellido: ");
-                    String apellido = scanner.nextLine();
+                        if (dni <= 0) {
+                            System.out.println("El DNI debe ser mayor que 0.");
+                        }
 
-                    System.out.print("Ingrese sueldo: ");
+                    } while (dni <= 0);
 
-                    while (!scanner.hasNextDouble()) {
-                        System.out.println("El sueldo debe ser un numero.");
-                        scanner.nextLine();
+
+                    String nombre;
+
+                    do {
+                        System.out.print("Ingrese nombre: ");
+                        nombre = teclado.nextLine().trim();
+
+                        if (nombre.isEmpty()) {
+                            System.out.println("El nombre no puede estar vacio");
+                        }
+
+                    } while (nombre.isEmpty());
+
+
+                    String apellido;
+
+                    do {
+                        System.out.print("Ingrese apellido: ");
+                        apellido = teclado.nextLine().trim();
+
+                        if (apellido.isEmpty()) {
+                            System.out.println("El apellido no puede estar vacio");
+                        }
+
+                    } while (apellido.isEmpty());
+
+
+                    double sueldo;
+
+                    do {
                         System.out.print("Ingrese sueldo: ");
-                    }
 
-                    double sueldo = scanner.nextDouble();
-                    scanner.nextLine();
+                        while (!teclado.hasNextDouble()) {
+                            System.out.println("El sueldo debe ser numerico");
+                            teclado.nextLine();
+                            System.out.print("Ingrese sueldo: ");
+                        }
 
-                    System.out.print("Ingrese categoria: ");
-                    String categoriaIngresada = scanner.nextLine();
+                        sueldo = teclado.nextDouble();
+                        teclado.nextLine();
 
-                    while (categoriaIngresada.length() != 1) {
-                        System.out.println("La categoria debe ser un solo caracter.");
+                        if (sueldo < 0) {
+                            System.out.println("El sueldo no puede ser negativo");
+                        }
+
+                    } while (sueldo < 0);
+
+
+                    char categoria;
+
+                    do {
                         System.out.print("Ingrese categoria: ");
-                        categoriaIngresada = scanner.nextLine();
-                    }
 
-                    char categoria = categoriaIngresada.charAt(0);
+                        String entrada = teclado.nextLine().trim().toUpperCase();
+
+                        if (entrada.length() == 1 &&
+                                Character.isLetter(entrada.charAt(0))) {
+
+                            categoria = entrada.charAt(0);
+
+                        } else {
+
+                            categoria = ' ';
+
+                            System.out.println(
+                                    "La categori debe ser una sola letra"
+                            );
+                        }
+
+                    } while (categoria == ' ');
+
 
                     String clave = dni + String.valueOf(categoria);
+
 
                     if (empleados.containsKey(clave)) {
 
                         System.out.println(
-                            "Ya existe un empleado con la clave " + clave + "."
+                                "Ya existe un empleado con esa combinacion de DNI y categoria"
                         );
 
                     } else {
 
                         Empleado empleado = new Empleado(
-                            dni,
-                            nombre,
-                            apellido,
-                            sueldo,
-                            categoria
+                                dni,
+                                nombre,
+                                apellido,
+                                sueldo,
+                                categoria
                         );
 
                         empleados.put(clave, empleado);
 
                         System.out.println(
-                            "Empleado agregado correctamente."
+                                "Empleado agregado correctamente"
                         );
                     }
 
                     break;
 
+
                 case 2:
 
                     if (empleados.isEmpty()) {
 
-                        System.out.println("No hay empleados cargados.");
+                        System.out.println("No hay empleados cargados");
 
                     } else {
 
                         Iterator<String> it =
-                            empleados.keySet().iterator();
+                                empleados.keySet().iterator();
 
                         while (it.hasNext()) {
 
                             String claveEmpleado = it.next();
 
+                            Empleado empleado =
+                                    empleados.get(claveEmpleado);
+
                             System.out.println(
-                                "Clave: " + claveEmpleado +
-                                " -> " +
-                                empleados.get(claveEmpleado)
+                                    "Clave: " + claveEmpleado
+                                    + " -> Valor: " + empleado
                             );
                         }
                     }
 
                     break;
 
+
                 case 3:
 
                     System.out.print(
-                        "Ingrese la clave del empleado a eliminar: "
+                            "Ingrese la clave del empleado a eliminar: "
                     );
 
-                    String claveEliminar = scanner.nextLine();
+                    String claveEliminar =
+                            teclado.nextLine().trim();
 
                     if (empleados.containsKey(claveEliminar)) {
 
                         empleados.remove(claveEliminar);
 
                         System.out.println(
-                            "Empleado eliminado correctamente."
+                                "Empleado eliminado correctamente"
                         );
 
                     } else {
 
                         System.out.println(
-                            "No existe un empleado con esa clave."
+                                "No existe un empleado con esa clave"
                         );
                     }
 
                     break;
 
+
                 case 4:
 
                     System.out.print(
-                        "Ingrese la clave del empleado a consultar: "
+                            "Ingrese la clave del empleado a consultar: "
                     );
 
-                    String claveConsultar = scanner.nextLine();
+                    String claveConsultar =
+                            teclado.nextLine().trim();
 
                     if (empleados.containsKey(claveConsultar)) {
 
                         Empleado empleado =
-                            empleados.get(claveConsultar);
+                                empleados.get(claveConsultar);
 
                         System.out.println(
-                            "Datos del empleado:"
+                                "Datos del empleado:"
                         );
 
                         System.out.println(empleado);
@@ -175,29 +237,31 @@ public class Ejercicio2 {
                     } else {
 
                         System.out.println(
-                            "No existe un empleado con esa clave."
+                                "No existe un empleado con esa clave"
                         );
                     }
 
                     break;
 
+
                 case 5:
 
                     System.out.println(
-                        "Programa finalizado."
+                            "Programa finalizado"
                     );
 
                     break;
 
+
                 default:
 
                     System.out.println(
-                        "Opcion no valida."
+                            "Opcion invalida. Ingrese un numero del 1 al 5"
                     );
             }
 
         } while (opcion != 5);
 
-        scanner.close();
+        teclado.close();
     }
 }

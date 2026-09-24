@@ -38,10 +38,10 @@ public class Empleado {
 
     @Override
     public String toString() {
-        return "DNI: " + dni +
-               " - Nombre: " + nombre +
-               " - Apellido: " + apellido +
-               " - Sueldo: " + sueldo +
-               " - Categoria: " + categoria;
+        return "DNI: " + dni
+                + " | Nombre: " + nombre
+                + " | Apellido: " + apellido
+                + " | Sueldo: $" + sueldo
+                + " | Categoria: " + categoria;
     }
 }
