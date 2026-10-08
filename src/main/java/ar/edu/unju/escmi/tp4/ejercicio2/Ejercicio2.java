@@ -1,4 +1,4 @@
-package ar.edu.unju.escmi.tp2.ejercicio2;
+package ar.edu.unju.escmi.tp4.ejercicio2;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -23,7 +23,7 @@ public class Ejercicio2 {
             System.out.println("3 - Eliminar empleado");
             System.out.println("4 - Consultar datos de un empleado");
             System.out.println("5 - Salir");
-            System.out.print("Ingrese una opcon: ");
+            System.out.print("Ingrese una opcion: ");
 
             while (!teclado.hasNextInt()) {
                 System.out.println("La opcion debe ser un numero");
@@ -58,7 +58,6 @@ public class Ejercicio2 {
 
                     } while (dni <= 0);
 
-
                     String nombre;
 
                     do {
@@ -71,7 +70,6 @@ public class Ejercicio2 {
 
                     } while (nombre.isEmpty());
 
-
                     String apellido;
 
                     do {
@@ -83,7 +81,6 @@ public class Ejercicio2 {
                         }
 
                     } while (apellido.isEmpty());
-
 
                     double sueldo;
 
@@ -99,12 +96,13 @@ public class Ejercicio2 {
                         sueldo = teclado.nextDouble();
                         teclado.nextLine();
 
-                        if (sueldo < 0) {
-                            System.out.println("El sueldo no puede ser negativo");
+                        if (!Double.isFinite(sueldo) || sueldo < 0) {
+                            System.out.println(
+                                    "El sueldo debe ser un numero finito y no negativo"
+                            );
                         }
 
-                    } while (sueldo < 0);
-
+                    } while (!Double.isFinite(sueldo) || sueldo < 0);
 
                     char categoria;
 
@@ -123,15 +121,13 @@ public class Ejercicio2 {
                             categoria = ' ';
 
                             System.out.println(
-                                    "La categori debe ser una sola letra"
+                                    "La categoria debe ser una sola letra"
                             );
                         }
 
                     } while (categoria == ' ');
 
-
                     String clave = dni + String.valueOf(categoria);
-
 
                     if (empleados.containsKey(clave)) {
 
@@ -157,7 +153,6 @@ public class Ejercicio2 {
                     }
 
                     break;
-
 
                 case 2:
 
@@ -186,7 +181,6 @@ public class Ejercicio2 {
 
                     break;
 
-
                 case 3:
 
                     System.out.print(
@@ -194,7 +188,7 @@ public class Ejercicio2 {
                     );
 
                     String claveEliminar =
-                            teclado.nextLine().trim();
+                            teclado.nextLine().trim().toUpperCase();
 
                     if (empleados.containsKey(claveEliminar)) {
 
@@ -213,7 +207,6 @@ public class Ejercicio2 {
 
                     break;
 
-
                 case 4:
 
                     System.out.print(
@@ -221,7 +214,7 @@ public class Ejercicio2 {
                     );
 
                     String claveConsultar =
-                            teclado.nextLine().trim();
+                            teclado.nextLine().trim().toUpperCase();
 
                     if (empleados.containsKey(claveConsultar)) {
 
@@ -243,7 +236,6 @@ public class Ejercicio2 {
 
                     break;
 
-
                 case 5:
 
                     System.out.println(
@@ -251,7 +243,6 @@ public class Ejercicio2 {
                     );
 
                     break;
-
 
                 default:
 
